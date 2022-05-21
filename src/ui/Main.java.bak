@@ -69,9 +69,9 @@ public class Main{
 		System.out.println("Type the brand of the vehicle");
 		brand=sc.next();
 		
-		String vModel;
+		int vModel;
 		System.out.println("Type the model of the vehicle");
-		vModel=sc.next();
+		vModel=sc.nextInt();
 		
 		int cc=0;
 		System.out.println("Type cylinder capacity of the vehicle");
@@ -114,7 +114,7 @@ public class Main{
 	}
 	
 	
-	public void optionCar(double basePrice, double sellPrice, String brand, String vModel, int cc, double km, int typeOption, String plate){
+	public void optionCar(double basePrice, double sellPrice, String brand, int vModel, int cc, double km, int typeOption, String plate){
 	
 		int cTypeOption=0;
 		System.out.println(
@@ -165,7 +165,7 @@ public class Main{
 	}
 	
 	
-	public void optionGas(double basePrice, double sellPrice, String brand, String vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint){
+	public void optionGas(double basePrice, double sellPrice, String brand, int vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint){
 		
 		int capacity=0;
 		System.out.println("Type the car's fuel capacity");
@@ -180,18 +180,14 @@ public class Main{
 		);
 		gasTypeOption=sc.nextInt();
 		
-		double gConsumption=0;
-		System.out.println("Type the car's gasoline consumption");
-		gConsumption=sc.nextDouble();
-		
-		System.out.println(ds.addGasCar(basePrice, sellPrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint, capacity, gasTypeOption, gConsumption));
+		System.out.println(ds.addGasCar(basePrice, sellPrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint, capacity, gasTypeOption));
 	}
 	
-	public void optionElectric(double basePrice, double sellPrice, String brand, String vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint){
+	public void optionElectric(double basePrice, double sellPrice, String brand, int vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint){
 		
 		int chargerTypeOption=0;
 		System.out.println(
-		"Please select an option according to the car's charger type"+
+		"Please select an option according to the car's charger type\n"+
 		"(1) Regular\n"+
 		"(2) Fast\n"
 		);
@@ -201,14 +197,40 @@ public class Main{
 		System.out.println("Type the car's battery duration");
 		batteryDuration=sc.nextInt();
 		
-		double bConsumption=0;
-		System.out.println("Type the car's battery consumption");
-		bConsumption=sc.nextDouble();
-		
-		System.out.println(ds.addElectricCar(basePrice, sellPrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint, chargerTypeOption, batteryDuration, bConsumption));
+		System.out.println(ds.addElectricCar(basePrice, sellPrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint, chargerTypeOption, batteryDuration));
 	}
 	
-	public void optionBike(double basePrice, double sellPrice, String brand, String vModel, int cc, double km, int typeOption, String plate){
+	public void optionHybrid(double basePrice, double sellPrice, String brand, int vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint){
+		
+		int capacity=0;
+		System.out.println("Type the car's fuel capacity");
+		capacity=sc.nextInt();
+		
+		int gasTypeOption=0;
+		System.out.println(
+		"Please select an option according to the car's gasoline type\n"+
+		"(1) Extra\n"+
+		"(2) Regular\n"+
+		"(3) Diesel\n"
+		);
+		gasTypeOption=sc.nextInt();
+		
+		int chargerTypeOption=0;
+		System.out.println(
+		"Please select an option according to the car's charger type\n"+
+		"(1) Regular\n"+
+		"(2) Fast\n"
+		);
+		chargerTypeOption=sc.nextInt();
+		
+		int batteryDuration=0;
+		System.out.println("Type the car's battery duration");
+		batteryDuration=sc.nextInt();
+		
+		System.out.println(ds.addHybridCar(basePrice, sellPrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint, capacity, gasTypeOption, chargerTypeOption, batteryDuration));
+	}
+	
+	public void optionBike(double basePrice, double sellPrice, String brand, int vModel, int cc, double km, int typeOption, String plate){
 		
 		int bikeTypeOption=0;
 		System.out.println(
@@ -224,11 +246,7 @@ public class Main{
 		System.out.println("Type the bike's fuel capacity");
 		gasCapacity=sc.nextInt();
 		
-		double consumption=0;
-		System.out.println("Type the bike's fuel consumption");
-		consumption=sc.nextDouble();
-		
-		System.out.println(ds.addBike(basePrice, sellPrice, brand, vModel, cc, km, typeOption, plate, bikeTypeOption, gasCapacity, consumption));
+		System.out.println(ds.addBike(basePrice, sellPrice, brand, vModel, cc, km, typeOption, plate, bikeTypeOption, gasCapacity));
 	}
 	
 	public void showAllInfo(){

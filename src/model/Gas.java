@@ -1,16 +1,34 @@
 package model;
 
-public class Gas extends Car{
+public class Gas extends Car implements GasConsumption{
 
 	private int capacity;
 	private GasType gasType;
 	private double gConsumption;
 	
-	public Gas(double basePrice, double sellPrice, String brand, String vModel, int cc, double km, VehicleType type, String plate, CarType cType, int doors, boolean tint, int capacity, GasType gasType, double gConsumption){
-		super(basePrice, sellPrice, brand, vModel, cc, km, type, plate, cType, doors, tint);
+	public Gas(double basePrice, String brand, int vModel, int cc, double km, VehicleType type, String plate, CarType cType, int doors, boolean tint, int capacity, GasType gasType){
+		super(basePrice, brand, vModel, cc, km, type, plate, cType, doors, tint);
 		this.capacity=capacity;
 		this.gasType=gasType;
-		this.gConsumption=gConsumption;
+		gConsumption=calculateGasConsumption();
+		sellPrice=calculateSellPrice();
+	}
+	
+	@Override
+	public double calculateGasConsumption(){
+		double out=capacity*super.getCc()/150;
+		return out;
+	}
+
+	@Override
+	public double calculateSellPrice() {
+		double sellPrice=basePrice;
+		sellPrice+=documentFine();
+
+		if(type==VehicleType.USED){
+			sellPrice-=basePrice*0.1;
+		}
+		return sellPrice;
 	}
 	
 	@Override
@@ -31,5 +49,4 @@ public class Gas extends Car{
 		"Gas Type: "+gasType+"\n"+
 		"Gas Consumption: "+gConsumption+" gal/km\n";
 	}
-		
 }

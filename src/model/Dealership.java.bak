@@ -10,12 +10,15 @@ public class Dealership{
 		vehicles=new ArrayList <Vehicle>();
 	}
 	
-	public String addGasCar(double basePrice, double sellPrice, String brand, String vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint, int capacity, int gasTypeOption, double gConsumption){
+	
+	
+	public String addGasCar(double basePrice, double sellPrice, String brand, int vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint, int capacity, int gasTypeOption){
 		
 		VehicleType type=null;
 		switch(typeOption){
 			case 1:
 				type = VehicleType.NEW;
+				
 				break;
 			case 2:
 				type = VehicleType.USED;
@@ -45,13 +48,13 @@ public class Dealership{
 				break;
 		}
 		
-		Vehicle gasCar=new Gas(basePrice, sellPrice, brand, vModel, cc, km, type, plate, cType, doors, tint, capacity, gasType, gConsumption);
+		Vehicle gasCar=new Gas(basePrice, sellPrice, brand, vModel, cc, km, type, plate, cType, doors, tint, capacity, gasType);
 		vehicles.add(gasCar);
 		return "Gasoline Car has been added";
 	}
 	
 	
-	public String addElectricCar(double basePrice, double sellPrice, String brand, String vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint, int chargerTypeOption, int batteryDuration, double bConsumption){
+	public String addElectricCar(double basePrice, double sellPrice, String brand, int vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint, int chargerTypeOption, int batteryDuration){
 		
 		VehicleType type=null;
 		switch(typeOption){
@@ -83,13 +86,63 @@ public class Dealership{
 				break;
 		}
 		
-		Vehicle electricCar=new Gas(basePrice, sellPrice, brand, vModel, cc, km, type, plate, cType, doors, tint, capacity, chargerType, bConsumption);
+		Vehicle electricCar=new Electric(basePrice, sellPrice, brand, vModel, cc, km, type, plate, cType, doors, tint, chargerType, batteryDuration);
 		vehicles.add(electricCar);
 		return "Electric Car has been added";
 	}
 	
+	public String addHybridCar(double basePrice, double sellPrice, String brand, int vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint, int capacity, int gasTypeOption, int chargerTypeOption, int batteryDuration){
+		
+		VehicleType type=null;
+		switch(typeOption){
+			case 1:
+				type = VehicleType.NEW;
+				
+				break;
+			case 2:
+				type = VehicleType.USED;
+				break;
+		}
+		
+		CarType cType=null;
+		switch(cTypeOption){
+			case 1:
+				cType = CarType.SEDAN;
+				break;
+			case 2:
+				cType = CarType.TRUCK;
+				break;
+		}
+		
+		GasType gasType=null;
+		switch(gasTypeOption){
+			case 1:
+				gasType = GasType.EXTRA;
+				break;
+			case 2:
+				gasType = GasType.REGULAR;
+				break;
+			case 3:
+				gasType = GasType.DIESEL;
+				break;
+		}
+		
+		ChargerType chargerType=null;
+		switch(chargerTypeOption){
+			case 1:
+				chargerType = ChargerType.REGULAR;
+				break;
+			case 2:
+				chargerType = ChargerType.FAST;
+				break;
+		}
+		
+		Vehicle hybridCar=new Hybrid(basePrice, sellPrice, brand, vModel, cc, km, type, plate, cType, doors, tint, capacity, gasType, chargerType, batteryDuration);
+		vehicles.add(hybridCar);
+		return "Hybrid Car has been added";
+	}
 	
-	public String addBike(double basePrice, double sellPrice, String brand, String vModel, int cc, double km, int typeOption, String plate, int bikeTypeOption, int gasCapacity, double consumption){
+	public String addBike(double basePrice, double sellPrice, String brand, int vModel, int cc, double km, int typeOption, String plate, int bikeTypeOption, int gasCapacity){
 		
 		VehicleType type=null;
 		switch(typeOption){
@@ -117,7 +170,7 @@ public class Dealership{
 				break;
 		}
 		
-		Vehicle bike=new Bike(basePrice, sellPrice, brand, vModel, cc, km, type, plate, bikeType, gasCapacity, consumption);
+		Vehicle bike=new Bike(basePrice, sellPrice, brand, vModel, cc, km, type, plate, bikeType, gasCapacity);
 		vehicles.add(bike);
 		return "Bike has been added";
 	}

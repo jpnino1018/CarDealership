@@ -1,16 +1,35 @@
 package model;
 
-public class Bike extends Vehicle{
+public class Bike extends Vehicle implements GasConsumption{
 	
 	private BikeType bikeType;
 	private int gasCapacity;
 	private double consumption;
 	
-	public Bike(double basePrice, double sellPrice, String brand, String vModel, int cc, double km, VehicleType type, String plate, BikeType bikeType, int gasCapacity, double consumption){
-		super(basePrice, sellPrice, brand, vModel, cc, km, type, plate);
+	public Bike(double basePrice, String brand, int vModel, int cc, double km, VehicleType type, String plate, BikeType bikeType, int gasCapacity){
+		super(basePrice, brand, vModel, cc, km, type, plate);
 		this.bikeType=bikeType;
 		this.gasCapacity=gasCapacity;
-		this.consumption=consumption;
+		consumption=calculateGasConsumption();
+		sellPrice=calculateSellPrice();
+	}
+	
+	@Override
+	public double calculateGasConsumption(){
+		double out=gasCapacity*super.getCc()/75;
+		return out;
+	}
+
+	@Override
+	public double calculateSellPrice() {
+		double sellPrice=basePrice;
+		sellPrice+=documentFine();
+		sellPrice+=basePrice*0.04;
+
+		if(type==VehicleType.USED){
+			sellPrice-=basePrice*0.02;
+		}
+		return sellPrice;
 	}
 	
 	@Override

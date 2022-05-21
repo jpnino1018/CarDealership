@@ -61,17 +61,9 @@ public class Main{
 		System.out.println("Type the base price of the vehicle");
 		basePrice=sc.nextInt();
 		
-		int sellPrice=0;
-		System.out.println("Type the selling price for the vehicle");
-		sellPrice=sc.nextInt();
-		
 		String brand;
 		System.out.println("Type the brand of the vehicle");
 		brand=sc.next();
-		
-		String vModel;
-		System.out.println("Type the model of the vehicle");
-		vModel=sc.next();
 		
 		int cc=0;
 		System.out.println("Type cylinder capacity of the vehicle");
@@ -92,7 +84,16 @@ public class Main{
 		"(2) Used\n"
 		);
 		typeOption=sc.nextInt();
-		
+
+		int vModel=0;
+		switch(typeOption){
+			case 1:
+				vModel=Dealership.ACTUAL_YEAR;
+			case 2:
+				System.out.println("Type the model of the vehicle");
+				vModel=sc.nextInt();
+				break;
+		}
 		int optionVehicle=0;
 		System.out.println(
 		"Please select an option to choose the kind of vehicle\n"+
@@ -103,10 +104,10 @@ public class Main{
 		
 		switch(optionVehicle){
 		case 1:
-			optionCar(basePrice, sellPrice, brand, vModel, cc, km, typeOption, plate);
+			optionCar(basePrice, brand, vModel, cc, km, typeOption, plate);
 			break;
 		case 2:
-			optionBike(basePrice, sellPrice, brand, vModel, cc, km, typeOption, plate);
+			optionBike(basePrice, brand, vModel, cc, km, typeOption, plate);
 			break;
 		default:
 			System.out.println("Error, Not a valid option");
@@ -114,7 +115,7 @@ public class Main{
 	}
 	
 	
-	public void optionCar(double basePrice, double sellPrice, String brand, String vModel, int cc, double km, int typeOption, String plate){
+	public void optionCar(double basePrice, String brand, int vModel, int cc, double km, int typeOption, String plate){
 	
 		int cTypeOption=0;
 		System.out.println(
@@ -148,16 +149,20 @@ public class Main{
 		System.out.println(
 		"Please select the car's fuel type\n"+
 		"(1) Gasoline Car\n"+
-		"(2) Electric Car\n"
+		"(2) Electric Car\n"+
+		"(3) Hybrid Car\n"
 		);
 		carFuelOption=sc.nextInt();
 		
 		switch(carFuelOption){
 		case 1:
-			optionGas(basePrice, sellPrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint);
+			optionGas(basePrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint);
 			break;
 		case 2:
-			optionElectric(basePrice, sellPrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint);
+			optionElectric(basePrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint);
+			break;
+		case 3:
+			optionHybrid(basePrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint);
 			break;
 		default:
 			System.out.println("Error, Not a valid option");
@@ -165,7 +170,7 @@ public class Main{
 	}
 	
 	
-	public void optionGas(double basePrice, double sellPrice, String brand, String vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint){
+	public void optionGas(double basePrice, String brand, int vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint){
 		
 		int capacity=0;
 		System.out.println("Type the car's fuel capacity");
@@ -180,14 +185,11 @@ public class Main{
 		);
 		gasTypeOption=sc.nextInt();
 		
-		double gConsumption=0;
-		System.out.println("Type the car's gasoline consumption");
-		gConsumption=sc.nextDouble();
-		
-		System.out.println(ds.addGasCar(basePrice, sellPrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint, capacity, gasTypeOption, gConsumption));
+		int index=ds.addGasCar(basePrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint, capacity, gasTypeOption);
+		AddDocumentsByVehicleStatus(index, typeOption);
 	}
 	
-	public void optionElectric(double basePrice, double sellPrice, String brand, String vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint){
+	public void optionElectric(double basePrice, String brand, int vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint){
 		
 		int chargerTypeOption=0;
 		System.out.println(
@@ -201,14 +203,42 @@ public class Main{
 		System.out.println("Type the car's battery duration");
 		batteryDuration=sc.nextInt();
 		
-		double bConsumption=0;
-		System.out.println("Type the car's battery consumption");
-		bConsumption=sc.nextDouble();
-		
-		System.out.println(ds.addElectricCar(basePrice, sellPrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint, chargerTypeOption, batteryDuration, bConsumption));
+		int index=ds.addElectricCar(basePrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint, chargerTypeOption, batteryDuration);
+		AddDocumentsByVehicleStatus(index, typeOption);
 	}
 	
-	public void optionBike(double basePrice, double sellPrice, String brand, String vModel, int cc, double km, int typeOption, String plate){
+	public void optionHybrid(double basePrice, String brand, int vModel, int cc, double km, int typeOption, String plate, int cTypeOption, int doors, boolean tint){
+		
+		int capacity=0;
+		System.out.println("Type the car's fuel capacity");
+		capacity=sc.nextInt();
+		
+		int gasTypeOption=0;
+		System.out.println(
+		"Please select an option according to the car's gasoline type\n"+
+		"(1) Extra\n"+
+		"(2) Regular\n"+
+		"(3) Diesel\n"
+		);
+		gasTypeOption=sc.nextInt();
+		
+		int chargerTypeOption=0;
+		System.out.println(
+		"Please select an option according to the car's charger type\n"+
+		"(1) Regular\n"+
+		"(2) Fast\n"
+		);
+		chargerTypeOption=sc.nextInt();
+		
+		int batteryDuration=0;
+		System.out.println("Type the car's battery duration");
+		batteryDuration=sc.nextInt();
+		
+		int index=ds.addHybridCar(basePrice, brand, vModel, cc, km, typeOption, plate, cTypeOption, doors, tint, capacity, gasTypeOption, chargerTypeOption, batteryDuration);
+		AddDocumentsByVehicleStatus(index, typeOption);
+	}
+	
+	public void optionBike(double basePrice, String brand, int vModel, int cc, double km, int typeOption, String plate){
 		
 		int bikeTypeOption=0;
 		System.out.println(
@@ -224,13 +254,64 @@ public class Main{
 		System.out.println("Type the bike's fuel capacity");
 		gasCapacity=sc.nextInt();
 		
-		double consumption=0;
-		System.out.println("Type the bike's fuel consumption");
-		consumption=sc.nextDouble();
-		
-		System.out.println(ds.addBike(basePrice, sellPrice, brand, vModel, cc, km, typeOption, plate, bikeTypeOption, gasCapacity, consumption));
+		int index=ds.addBike(basePrice, brand, vModel, cc, km, typeOption, plate, bikeTypeOption, gasCapacity);
+		AddDocumentsByVehicleStatus(index, typeOption);
+	}
+
+	public void RegisterSoat(int index){
+        System.out.println("\n***SOAT INFORMATION***\n");
+
+        System.out.println("Type the SOAT's price");
+        double price = sc.nextDouble();
+
+        System.out.println("Type the SOAT's registered year");
+        int year = sc.nextInt();
+
+        System.out.println("Type the insurance coverage");
+        double coverage=sc.nextDouble();
+
+        ds.addSoatToVehicle(index, price, coverage, year);
+    }
+
+    public void RegisterMechanicRevision(int index) {
+        System.out.println("\n***TM REVISION INFORMATION***\n");
+
+        System.out.println("Type the price of the mechanical revision");
+        double price = sc.nextDouble();
+
+        System.out.println("Type the revision's registered year");
+        int year = sc.nextInt();
+
+        System.out.println("Type the vehicle's gas levels");
+        double gasLevel = sc.nextDouble();
+
+        ds.addMechanicRevisionToVehicle(index, price, year, gasLevel);
+    }
+
+    public void RegisterPropertyCard(int index) {
+        System.out.println("\n***PROPERTY CARD***\n");
+
+        System.out.println("Type the Property card's price");
+        double price = sc.nextDouble();
+
+        System.out.println("Type the Property Card's registered year");
+        int year = sc.nextInt();
+
+        ds.addPropertyCardToVehicle(index, price, year);
 	}
 	
+	public void AddDocumentsByVehicleStatus(int index, int statusOption){
+		switch(statusOption){
+			case 1:
+				ds.addSoatToVehicle(index, 0.0, 0.0, Dealership.ACTUAL_YEAR);
+				break;
+			case 2:
+				RegisterSoat(index);
+				RegisterMechanicRevision(index);
+				RegisterPropertyCard(index);
+				break;
+		}
+	}
 	public void showAllInfo(){
 		System.out.println(ds.getInfo());
 	}
