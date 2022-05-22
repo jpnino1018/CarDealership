@@ -7,6 +7,7 @@ public class Soat extends Document{
     public Soat(double price, int year, double coverage) {
         super(price, year);
         this.setCoverage(coverage);
+        code=decodeImage();
     }
 
     @Override
@@ -16,7 +17,7 @@ public class Soat extends Document{
             code+=""+image[i][0];
         }
         for(int j=1; j<COLUMNS; j++){
-            code+=""+image[ROWS][j];
+            code+=""+image[ROWS-1][j];
         }
         return code;
     }
@@ -30,7 +31,7 @@ public class Soat extends Document{
 
     @Override
     public String toString(){
-        return "**SOAT**\n"+
+        return "\n**SOAT**\n"+
         super.toString()+
         "Insurance Coverage: "+coverage+"\n";
     }

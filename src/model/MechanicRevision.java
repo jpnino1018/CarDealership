@@ -7,6 +7,7 @@ public class MechanicRevision extends Document{
     public MechanicRevision(double price, int year, double gasLevels) {
         super(price, year);
         this.setGasLevels(gasLevels);
+        code=decodeImage();
     }
 
     @Override
@@ -17,14 +18,14 @@ public class MechanicRevision extends Document{
         for(int j=0; j<COLUMNS; j++){
             code+=""+image[0][j];
         }
-        while (r<ROWS){
-            for(int j=COLUMNS-1; j>=0; j--){
+        while (r!=ROWS){
+            for(int j=COLUMNS-2; j>=0; j--){
                 code+=""+image[r][j];
                 r++;
             }
         }
-        for(int j=0; j<COLUMNS; j++){
-            code+=""+image[ROWS][j];
+        for(int j=1; j<COLUMNS; j++){
+            code+=""+image[ROWS-1][j];
         }
         return code;
     }
@@ -33,13 +34,13 @@ public class MechanicRevision extends Document{
         return gasLevels;
     }
 
-    public void setGasLevels(double gasLevels) {
+    public void setGasLevels(double gasLevels){
         this.gasLevels = gasLevels;
     }
 
     @Override
     public String toString(){
-        return "**TECHNICAL & MECHANICAL**\n"+
+        return "\n**TECHNICAL & MECHANICAL**\n"+
         super.toString()+
         "Gas Levels: "+gasLevels+"\n";
     }

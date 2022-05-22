@@ -4,6 +4,7 @@ public class PropertyCard extends Document{
 
     public PropertyCard(double price, int year) {
         super(price, year);
+        code=decodeImage();
     }
 
     @Override
@@ -23,7 +24,7 @@ public class PropertyCard extends Document{
 
     @Override
     public String toString(){
-        return "**PROPERTY CARD**\n"+
+        return "\n**PROPERTY CARD**\n"+
         super.toString();
     }
 }

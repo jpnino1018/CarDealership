@@ -11,7 +11,6 @@ public class Gas extends Car implements GasConsumption{
 		this.capacity=capacity;
 		this.gasType=gasType;
 		gConsumption=calculateGasConsumption();
-		sellPrice=calculateSellPrice();
 	}
 	
 	@Override
@@ -22,13 +21,14 @@ public class Gas extends Car implements GasConsumption{
 
 	@Override
 	public double calculateSellPrice() {
-		double sellPrice=basePrice;
-		sellPrice+=documentFine();
+		double out=basePrice;
+		out+=documentFine();
 
 		if(type==VehicleType.USED){
-			sellPrice-=basePrice*0.1;
+			out-=basePrice*0.1;
 		}
-		return sellPrice;
+		sellPrice=out;
+		return out;
 	}
 	
 	@Override
@@ -48,5 +48,15 @@ public class Gas extends Car implements GasConsumption{
 		"Fuel Capacity: "+capacity+" Gallons\n"+
 		"Gas Type: "+gasType+"\n"+
 		"Gas Consumption: "+gConsumption+" gal/km\n";
+	}
+
+	public GasType getGasType(){
+		return gasType;
+	}
+	public int getCapacity(){
+		return capacity;
+	}
+	public double getConsumption(){
+		return gConsumption;
 	}
 }

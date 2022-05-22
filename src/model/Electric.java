@@ -11,7 +11,6 @@ public class Electric extends Car implements BatteryConsumption{
 		this.chargerType=chargerType;
 		this.batteryDuration=batteryDuration;
 		bConsumption=calculateBatteryConsumption();
-		sellPrice=calculateSellPrice();
 	}
 	
 	@Override
@@ -27,14 +26,15 @@ public class Electric extends Car implements BatteryConsumption{
 
 	@Override
 	public double calculateSellPrice() {
-		double sellPrice=basePrice;
-		sellPrice+=documentFine();
-		sellPrice+=basePrice*0.2;
+		double out=basePrice;
+		out+=documentFine();
+		out+=basePrice*0.2;
 
 		if(type==VehicleType.USED){
-			sellPrice-=basePrice*0.1;
+			out-=basePrice*0.1;
 		}
-		return sellPrice;
+		sellPrice=out;
+		return out;
 	}
 	
 	@Override

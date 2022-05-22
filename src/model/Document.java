@@ -10,12 +10,21 @@ public abstract class Document{
     protected static final int COLUMNS=4;
     protected static final int ROWS=4;
 
+    /**
+     * Constructor of Document Class
+     * @param price
+     * @param year
+     */
     public Document(double price, int year){
         this.setPrice(price);
         this.setYear(year);
         image=new int[ROWS][COLUMNS];
+        createImage();
     }
 
+    /**
+     * This method creates an image full of random numbers
+     */
     public void createImage(){
         Random rand=new Random();
         for(int i=0; i<ROWS; i++){
@@ -59,9 +68,14 @@ public abstract class Document{
     public String toString(){
         return "Year: "+year+"\n"+
         "Price: $"+price+"\n"+
+        printImage()+"\n"+
         "Code: "+code+"\n";
     }
 
+    /**
+     * This method prints the image
+     * @return
+     */
     public String printImage() {
         String out="";
         for (int i = 0; i<ROWS; i++) {
@@ -73,5 +87,9 @@ public abstract class Document{
         return out;
     }
 
+    /**
+     * This abstract method allows all daughter classes to decode image in their own way
+     * @return
+     */
     public abstract String decodeImage();
 }

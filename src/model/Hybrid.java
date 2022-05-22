@@ -17,7 +17,6 @@ public class Hybrid extends Car implements GasConsumption, BatteryConsumption{
 		this.chargerType=chargerType;
 		this.batteryDuration=batteryDuration;
 		bConsumption=calculateBatteryConsumption();
-		sellPrice=calculateSellPrice();
 	}
 	
 	@Override
@@ -39,14 +38,15 @@ public class Hybrid extends Car implements GasConsumption, BatteryConsumption{
 
 	@Override
 	public double calculateSellPrice() {
-		double sellPrice=basePrice;
-		sellPrice+=documentFine();
-		sellPrice+=basePrice*0.15;
+		double out=basePrice;
+		out+=documentFine();
+		out+=basePrice*0.15;
 
 		if(type==VehicleType.USED){
-			sellPrice-=basePrice*0.1;
+			out-=basePrice*0.1;
 		}
-		return sellPrice;
+		sellPrice=out;
+		return out;
 	}
 	
 	@Override
